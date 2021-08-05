@@ -1,0 +1,9 @@
+<div *ngIf="posts.length > 0; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <p-accordion [multiple]="true" *ngFor="let post of posts">
+        <p-accordionTab [header]="post.title">
+            {{ post.content }}
+        </p-accordionTab>
+    </p-accordion>
+</ng-template>
+<ng-template #elseBlock>NO POSTS ADDED!</ng-template>

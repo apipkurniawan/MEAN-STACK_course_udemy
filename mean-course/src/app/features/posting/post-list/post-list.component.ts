@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { PostWrapper } from './../../../models/post-wrapper';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-post-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
     // styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
+
+    @Input() posts = [];
 
     constructor(
     ) { }

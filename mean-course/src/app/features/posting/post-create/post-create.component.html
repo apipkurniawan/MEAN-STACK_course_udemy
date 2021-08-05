@@ -1,9 +1,20 @@
 <app-header></app-header>
+
 <p-card header="Write your post" styleClass="ui-card-shadow">
-    <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postInput"></textarea>
+    <div class="ui-fluid">
+        <div class="p-field">
+            <label>Title</label><br>
+            <input type="text" size="30" pInputText [(ngModel)]="postTitle"><br>
+        </div>
+        <div class="p-field">
+            <label>Deskripsi</label><br>
+            <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postDesk"></textarea>
+        </div>
+    </div>
     <hr>
-    <button pButton type="button" label="Save Post" icon="pi pi-check" style="margin-right: .25em" (click)="onSave()"
+    <button pButton type="button" label="Save Post" icon="pi pi-check" style="margin-right: .25em" (click)="onAddPost()"
         class="p-button-danger"></button>
 </p-card>
 
-<h2>{{ newPost }}</h2>
+<br>
+<app-post-list [posts]="StoredPost"></app-post-list>
