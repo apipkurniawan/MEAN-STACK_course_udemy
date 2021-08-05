@@ -1,4 +1,3 @@
-import { PostWrapper } from '../../models/post-wrapper.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,13 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostContainerComponent implements OnInit {
 
-    storedPosts: PostWrapper[] = [];
-
     constructor() { }
 
     ngOnInit(): void { }
 
-    onAddedPost(post: PostWrapper) {
-        this.storedPosts.push(post);
-    }
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { PostWrapper } from './../../../models/post-wrapper.model';
+import { PostService } from 'src/app/services/post.service';
 @Component({
     selector: 'app-post-create',
     templateUrl: './post-create.component.html'
@@ -11,9 +10,8 @@ export class PostCreateComponent implements OnInit {
 
     postDesk: string;
     postTitle: string;
-    @Output() postCreated = new EventEmitter<PostWrapper>();
 
-    constructor() { }
+    constructor(public postService: PostService) { }
 
     ngOnInit(): void { }
 
@@ -21,11 +19,7 @@ export class PostCreateComponent implements OnInit {
         if (form.invalid) {
             return;
         }
-        const post: PostWrapper = {
-            title: form.value.title,
-            content: form.value.deskripsi
-        };
-        this.postCreated.emit(post);
+        this.postService.addPost(form.value.title, form.value.deskripsi);
         form.onReset();
     }
 }

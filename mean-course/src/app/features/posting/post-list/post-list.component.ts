@@ -1,17 +1,29 @@
 import { PostWrapper } from '../../../models/post-wrapper.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PostService } from 'src/app/services/post.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-post-list',
     templateUrl: './post-list.component.html'
     // styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
 
-    @Input() posts: PostWrapper[] = [];
+    posts: PostWrapper[] = [];
+    private postSub: Subscription;
 
-    constructor() { }
+    constructor(public postService: PostService) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.posts = this.postService.getPosts();
+        this.postSub = this.postService.getPostUpdateListener().subscribe((post: PostWrapper[]) => {
+            this.posts = post;
+        });
+    }
+
+    ngOnDestroy() {
+        this.postSub.unsubscribe();
+    }
 
 }
