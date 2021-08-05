@@ -12,6 +12,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     SharedModule
   ],
-  exports: []
+  exports: [
+    HeaderComponent
+  ]
 })
 export class ComponentsModule { }
