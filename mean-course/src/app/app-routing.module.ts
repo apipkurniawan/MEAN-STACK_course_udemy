@@ -4,14 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { CalculatorComponent } from '../app/features/calculator/calculator.component';
 import { DashboardComponent } from '../app/features/dashboard/dashboard.component';
 import { PageNotFoundComponent } from '../app/components/page-not-found/page-not-found.component';
-import { PostCreateComponent } from './features/posting/post-create/post-create.component';
 import { PostContainerComponent } from './features/posting/post-container.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'calculator', component: CalculatorComponent },
-  // { path: 'posting', component: PostCreateComponent },
   { path: 'posting', component: PostContainerComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
