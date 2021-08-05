@@ -1,4 +1,3 @@
-import { PostWrapper } from './../../../models/post-wrapper';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -10,11 +9,8 @@ export class PostListComponent implements OnInit {
 
     @Input() posts = [];
 
-    constructor(
-    ) { }
+    constructor() { }
 
-    ngOnInit(): void {
-
-    }
+    ngOnInit(): void { }
 
 }
