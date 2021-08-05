@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { CarouselModule } from 'primeng/carousel';
 import { GalleriaModule } from 'primeng/galleria';
 import { ToolbarModule } from 'primeng/toolbar';
-
+import { AccordionModule } from 'primeng/accordion';
 @NgModule({
     imports: [],
     exports: [
@@ -23,7 +23,8 @@ import { ToolbarModule } from 'primeng/toolbar';
         CarouselModule,
         GalleriaModule,
         ToastModule,
-        ToolbarModule
+        ToolbarModule,
+        AccordionModule
     ],
     declarations: []
 })
