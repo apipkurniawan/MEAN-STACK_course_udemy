@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+label {
+    font-family: 'Segoe UI';
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.header {
+    font-weight: 600;
+    font-size: x-large;
+}
+
+a {
+    text-decoration: none;
+}

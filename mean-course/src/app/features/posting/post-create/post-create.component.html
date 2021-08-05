@@ -1,0 +1,9 @@
+<app-header></app-header>
+<p-card header="Write your post" styleClass="ui-card-shadow">
+    <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postInput"></textarea>
+    <hr>
+    <button pButton type="button" label="Save Post" icon="pi pi-check" style="margin-right: .25em" (click)="onSave()"
+        class="p-button-danger"></button>
+</p-card>
+
+<h2>{{ newPost }}</h2>

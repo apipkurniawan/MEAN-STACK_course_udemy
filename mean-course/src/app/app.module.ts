@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
+import { ComponentsModule } from './components/components.module';
+import { FeaturesModule } from './features/features.module';
+import { SharedModule } from './shared/shared.module';
+// import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PostCreateComponent,
+    AppComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    BrowserAnimationsModule
+    AppRoutingModule,
+    SharedModule,
+    ComponentsModule,
+    FeaturesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

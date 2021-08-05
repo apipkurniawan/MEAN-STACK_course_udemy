@@ -1,0 +1,23 @@
+<div class="background">
+    <div class="p-grid p-mt-3 p-flex-column">
+        <div class="p-col">
+            <div class="p-mb-3 p-text-center header">
+                <label>Some Simple Application Lists</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let item of itemCard">
+            <a [routerLink]="['/'+item.route]">
+                <p-card [header]="item.title" [style]="{'background-color': 'khaki'}">
+                    <label>Author : {{ item.author }}</label>
+                    <br>
+                    <label>Desc : {{ item.deskripsi }}</label>
+                    <br>
+                    <label>Posted : {{ item.postedTime.toLocaleString() }}</label>
+                </p-card>
+            </a>
+        </div>
+    </div>
+</div>
