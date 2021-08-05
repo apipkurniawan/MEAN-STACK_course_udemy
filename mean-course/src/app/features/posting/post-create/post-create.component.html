@@ -1,16 +1,17 @@
 <p-card header="Write your post" styleClass="ui-card-shadow">
-    <div class="ui-fluid">
-        <div class="p-field">
-            <label>Title</label><br>
-            <input type="text" size="30" pInputText [(ngModel)]="postTitle" required><br>
+    <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+        <div class="ui-fluid">
+            <div class="p-field">
+                <label for="title">Title</label><br>
+                <input type="text" id="title" pInputText ngModel name="title" required>
+            </div>
+            <div class="p-field">
+                <label for="deskripsi">Deskripsi</label><br>
+                <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi" ngModel
+                    name="deskripsi" required></textarea>
+            </div>
         </div>
-        <div class="p-field">
-            <label>Deskripsi</label><br>
-            <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postDesk"
-                required></textarea>
-        </div>
-    </div>
-    <hr>
-    <button pButton type="button" label="Save Post" icon="pi pi-check" style="margin-right: .25em" (click)="onAddPost()"
-        class="p-button-danger"></button>
+        <button pButton type="submit" style="width: 10em" icon="pi pi-check" label="Save Post" class="p-button-danger"
+            [disabled]="!postForm.form.valid"></button>
+    </form>
 </p-card>
