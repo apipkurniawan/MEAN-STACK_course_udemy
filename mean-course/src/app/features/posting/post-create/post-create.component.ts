@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { PostWrapper } from './../../../models/post-wrapper';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-post-create',
@@ -9,17 +10,17 @@ export class PostCreateComponent implements OnInit {
 
     postDesk: string;
     postTitle: string;
-    StoredPost = [];
+    @Output() postCreated = new EventEmitter();
 
     constructor() { }
 
     ngOnInit(): void { }
 
     onAddPost() {
-        const post = {
+        const post: PostWrapper = {
             title: this.postTitle,
             content: this.postDesk
         };
-        this.StoredPost.push(post);
+        this.postCreated.emit(post);
     }
 }
