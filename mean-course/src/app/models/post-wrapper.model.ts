@@ -1,4 +1,4 @@
-export class PostWrapper {
+export interface PostWrapper {
     title: string;
     content: string;
 }

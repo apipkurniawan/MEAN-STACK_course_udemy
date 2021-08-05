@@ -2,11 +2,12 @@
     <div class="ui-fluid">
         <div class="p-field">
             <label>Title</label><br>
-            <input type="text" size="30" pInputText [(ngModel)]="postTitle"><br>
+            <input type="text" size="30" pInputText [(ngModel)]="postTitle" required><br>
         </div>
         <div class="p-field">
             <label>Deskripsi</label><br>
-            <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postDesk"></textarea>
+            <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" [(ngModel)]="postDesk"
+                required></textarea>
         </div>
     </div>
     <hr>

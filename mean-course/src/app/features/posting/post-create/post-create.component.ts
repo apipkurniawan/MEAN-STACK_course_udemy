@@ -1,4 +1,4 @@
-import { PostWrapper } from './../../../models/post-wrapper';
+import { PostWrapper } from './../../../models/post-wrapper.model';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -10,7 +10,7 @@ export class PostCreateComponent implements OnInit {
 
     postDesk: string;
     postTitle: string;
-    @Output() postCreated = new EventEmitter();
+    @Output() postCreated = new EventEmitter<PostWrapper>();
 
     constructor() { }
 

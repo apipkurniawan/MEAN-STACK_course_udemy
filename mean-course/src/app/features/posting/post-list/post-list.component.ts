@@ -1,4 +1,4 @@
-import { PostWrapper } from './../../../models/post-wrapper';
+import { PostWrapper } from '../../../models/post-wrapper.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

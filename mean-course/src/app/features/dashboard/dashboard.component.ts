@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
       },
       {
         id: 2, title: 'Calculator', route: 'calculator', image: '',
-        deskripsi: 'simple calculator using angular', postedTime: new Date(), author: 'apip'
+        deskripsi: 'Deployed', postedTime: new Date(), author: 'apip'
       },
       {
         id: 3, title: 'Timer', route: 'timer', image: '',
@@ -42,16 +42,12 @@ export class DashboardComponent implements OnInit {
         deskripsi: 'masih dalam pengerjaan', postedTime: new Date(), author: 'anynomous'
       },
       {
-        id: 7, title: 'Book', route: 'book', image: '',
-        deskripsi: 'masih dalam pengerjaan', postedTime: new Date(), author: 'anynomous'
-      },
-      {
         id: 8, title: 'Story', route: 'story', image: '',
         deskripsi: 'masih dalam pengerjaan', postedTime: new Date(), author: 'anynomous'
       },
       {
         id: 9, title: 'Posting', route: 'posting', image: '',
-        deskripsi: 'onProgress', postedTime: new Date(), author: 'anynomous'
+        deskripsi: 'Deployed', postedTime: new Date(), author: 'anynomous'
       },
     ]
 
