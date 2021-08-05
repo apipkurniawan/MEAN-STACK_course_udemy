@@ -3,7 +3,10 @@
         <div class="ui-fluid">
             <div class="p-field">
                 <label for="title">Title</label><br>
-                <input type="text" id="title" pInputText ngModel name="title" required>
+                <input type="text" id="title" pInputText ngModel name="title" #title="ngModel" minlength="3" required>
+                <div [hidden]="title.valid || title.pristine" style="color: red;" class="alert alert-danger">
+                    Must be longer than 3 characters
+                </div>
             </div>
             <div class="p-field">
                 <label for="deskripsi">Deskripsi</label><br>
