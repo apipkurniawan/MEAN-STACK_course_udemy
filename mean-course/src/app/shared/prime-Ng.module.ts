@@ -11,6 +11,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { GalleriaModule } from 'primeng/galleria';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AccordionModule } from 'primeng/accordion';
+import { MenubarModule } from 'primeng/menubar';
 @NgModule({
     imports: [],
     exports: [
@@ -24,7 +25,8 @@ import { AccordionModule } from 'primeng/accordion';
         GalleriaModule,
         ToastModule,
         ToolbarModule,
-        AccordionModule
+        AccordionModule,
+        MenubarModule
     ],
     declarations: []
 })

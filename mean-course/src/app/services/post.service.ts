@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { PostWrapper } from './../models/post-wrapper.model';
+import { environment } from 'src/environments/environment';
 
-const API_URL = 'http://localhost:3000/api/posts';
+const API_URL = environment.DEV_API_URL_AUTH + '/posts';
 @Injectable({
     providedIn: 'root'
 })

@@ -7,11 +7,26 @@ import { PageNotFoundComponent } from '../app/components/page-not-found/page-not
 import { PostContainerComponent } from './features/posting/post-container.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'calculator', component: CalculatorComponent },
-  { path: 'posting', component: PostContainerComponent },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: '',
+    redirectTo: '/dashboard', pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'calculator',
+    component: CalculatorComponent
+  },
+  {
+    path: 'posting',
+    component: PostContainerComponent,
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  },
 ];
 
 @NgModule({
