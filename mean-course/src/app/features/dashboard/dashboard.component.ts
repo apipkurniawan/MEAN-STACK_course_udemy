@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppInfo } from 'src/app/models/app-info';
-import { FirebaseService } from 'src/app/services/firebase-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +11,6 @@ export class DashboardComponent implements OnInit {
   itemCard: AppInfo[] = [];
 
   constructor(
-    private firService: FirebaseService
   ) { }
 
   ngOnInit(): void {
@@ -50,10 +48,6 @@ export class DashboardComponent implements OnInit {
         deskripsi: 'Deployed', postedTime: new Date(), author: 'anynomous'
       },
     ]
-
-    this.firService.getAllData().subscribe(res => {
-      console.log('data ', res);
-    })
   }
 
 }
