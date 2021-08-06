@@ -3,6 +3,14 @@
     <p-accordion [multiple]="true" *ngFor="let post of posts">
         <p-accordionTab [header]="post.title">
             {{ post.content }}
+            <div class="p-grid" style="margin-top: 1em; text-align: right;">
+                <div class="p-col">
+                    <button pButton type="button" style="width: 10em" icon="pi pi-pencil" label="Edit"
+                        class="p-button-success" (click)="onEdit(post.id)"></button>&nbsp;
+                    <button pButton type="button" style="width: 10em" icon="pi pi-trash" label="Delete"
+                        class="p-button-warning" (click)="onDelete(post.id)"></button>
+                </div>
+            </div>
         </p-accordionTab>
     </p-accordion>
 </ng-template>
