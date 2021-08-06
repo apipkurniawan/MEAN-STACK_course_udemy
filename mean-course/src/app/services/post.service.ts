@@ -28,7 +28,7 @@ export class PostService {
     }
 
     addPost(title: string, content: string) {
-        const post: PostWrapper = { id: 'vjjstt', title, content };
+        const post: PostWrapper = { id: null, title, content };
         this.httpClient.post<{ message: string }>(API_URL + '/posts', post)
             .subscribe(responseData => {
                 console.log(responseData.message);
