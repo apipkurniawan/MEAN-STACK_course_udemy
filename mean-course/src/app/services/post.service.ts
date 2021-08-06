@@ -29,7 +29,11 @@ export class PostService {
 
     addPost(title: string, content: string) {
         const post: PostWrapper = { id: 'vjjstt', title, content };
-        this.posts.push(post);
-        this.postUpdated.next([...this.posts]);
+        this.httpClient.post<{ message: string }>(API_URL + '/posts', post)
+            .subscribe(responseData => {
+                console.log(responseData.message);
+                this.posts.push(post);
+                this.postUpdated.next([...this.posts]);
+            });
     }
 }
