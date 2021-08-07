@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html'
-    //   styleUrls: ['./dashboard.component.css']
+    selector: 'app-post-header',
+    templateUrl: './post-header.component.html'
+    //   styleUrls: ['./post-header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class PostHeaderComponent implements OnInit {
 
     items: MenuItem[];
 

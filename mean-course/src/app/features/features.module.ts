@@ -7,13 +7,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PostCreateComponent } from './posting/post-create/post-create.component';
 import { PostListComponent } from './posting/post-list/post-list.component';
 import { PostContainerComponent } from "./posting/post-container.component";
+import { PostHeaderComponent } from './posting/post-header/post-header.component';
+
 @NgModule({
   declarations: [
     CalculatorComponent,
     DashboardComponent,
     PostCreateComponent,
     PostListComponent,
-    PostContainerComponent
+    PostContainerComponent,
+    PostHeaderComponent
   ],
   imports: [
     SharedModule,
