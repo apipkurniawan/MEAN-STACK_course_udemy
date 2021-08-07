@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="p-grid">
+    <div class="p-grid dashboard">
         <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let item of itemCard">
             <a [routerLink]="['/'+item.route]">
                 <p-card [header]="item.title" [style]="{'background-color': 'khaki'}">
