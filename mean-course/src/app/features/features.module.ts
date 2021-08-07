@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { ComponentsModule } from './../components/components.module';
 
 import { CalculatorComponent } from './calculator/calculator.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,8 +18,7 @@ import { PostHeaderComponent } from './posting/post-header/post-header.component
     PostHeaderComponent
   ],
   imports: [
-    SharedModule,
-    ComponentsModule
+    SharedModule
   ],
   exports: []
 })

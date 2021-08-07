@@ -12,6 +12,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AccordionModule } from 'primeng/accordion';
 import { MenubarModule } from 'primeng/menubar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
     imports: [],
     exports: [
@@ -26,7 +27,8 @@ import { MenubarModule } from 'primeng/menubar';
         ToastModule,
         ToolbarModule,
         AccordionModule,
-        MenubarModule
+        MenubarModule,
+        ProgressSpinnerModule
     ],
     declarations: []
 })
