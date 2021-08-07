@@ -25,3 +25,7 @@ button {
     height: 80px;
     font-size: 2rem;
 }
+
+.calculator {
+    margin-top: 1em;
+}
