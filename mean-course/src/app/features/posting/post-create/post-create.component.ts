@@ -13,6 +13,7 @@ export class PostCreateComponent implements OnInit {
     postDesk: string;
     postTitle: string;
     post: PostWrapper;
+    isLoading = false;
 
     private mode = 'create';
     private postId: string;
@@ -27,10 +28,13 @@ export class PostCreateComponent implements OnInit {
             if (param.has('postId')) {
                 this.mode = 'edit';
                 this.postId = param.get('postId');
+                this.isLoading = true;
                 this.postService.getPostById(this.postId)
                     .subscribe(postData => {
-                        console.log('post', postData)
                         this.post = { id: postData._id, title: postData.title, content: postData.content };
+                        setTimeout(() => {
+                            this.isLoading = false;
+                        }, 1000);
                     });
             } else {
                 this.mode = 'create';

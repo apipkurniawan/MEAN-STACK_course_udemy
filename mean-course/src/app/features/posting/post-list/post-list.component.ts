@@ -1,7 +1,8 @@
-import { PostWrapper } from '../../../models/post-wrapper.model';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PostService } from 'src/app/services/post.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { PostWrapper } from '../../../models/post-wrapper.model';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
     selector: 'app-post-list',
@@ -14,14 +15,20 @@ export class PostListComponent implements OnInit, OnDestroy {
     private postSub: Subscription;
     isLoading = false;
 
-    constructor(public postService: PostService) { }
+    constructor(public postService: PostService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.fetchData();
+        this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+            if (param.has('postId')) {
+                this.isLoading = false;
+            } else {
+                this.isLoading = true;
+            }
+            this.fetchData();
+        });
     }
 
     fetchData() {
-        this.isLoading = true;
         this.postService.getPosts();
         this.postSub = this.postService.getPostUpdateListener().subscribe((post: PostWrapper[]) => {
             this.posts = post;

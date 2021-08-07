@@ -1,5 +1,10 @@
 <p-card header="Write your post" styleClass="ui-card-shadow">
-    <form (submit)="onSavePost(postForm)" #postForm="ngForm">
+    <div class="loading" *ngIf="isLoading">
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE"
+            animationDuration=".5s">
+        </p-progressSpinner>
+    </div>
+    <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <div class="ui-fluid">
             <div class="p-field">
                 <label for="title">Title</label><br>
