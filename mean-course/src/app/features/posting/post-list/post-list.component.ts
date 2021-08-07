@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-post-list',
-    templateUrl: './post-list.component.html'
-    // styleUrls: ['./post-list.component.css']
+    templateUrl: './post-list.component.html',
+    styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
 
     posts: PostWrapper[] = [];
     private postSub: Subscription;
+    isLoading = false;
 
     constructor(public postService: PostService) { }
 
@@ -20,9 +21,13 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     fetchData() {
+        this.isLoading = true;
         this.postService.getPosts();
         this.postSub = this.postService.getPostUpdateListener().subscribe((post: PostWrapper[]) => {
             this.posts = post;
+            setTimeout(() => {
+                this.isLoading = false;
+            }, 1000);
         });
     }
 
@@ -34,7 +39,4 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.postService.deletePost(postId);
     }
 
-    onEdit(postId: string) {
-        // ...
-    }
 }

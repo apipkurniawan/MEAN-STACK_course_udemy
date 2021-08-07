@@ -15,3 +15,7 @@ label {
 a {
     text-decoration: none;
 }
+
+.loading {
+    text-align: center;
+}
