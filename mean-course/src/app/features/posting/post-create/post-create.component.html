@@ -1,17 +1,18 @@
 <p-card header="Write your post" styleClass="ui-card-shadow">
-    <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <form (submit)="onSavePost(postForm)" #postForm="ngForm">
         <div class="ui-fluid">
             <div class="p-field">
                 <label for="title">Title</label><br>
-                <input type="text" id="title" pInputText ngModel name="title" #title="ngModel" minlength="3" required>
+                <input type="text" id="title" pInputText [ngModel]="post && post.title? post.title : null" name="title"
+                    #title="ngModel" minlength="3" required>
                 <div [hidden]="title.valid || title.pristine" style="color: red;" class="alert alert-danger">
                     Must be longer than 3 characters
                 </div>
             </div>
             <div class="p-field">
                 <label for="deskripsi">Deskripsi</label><br>
-                <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi" ngModel
-                    name="deskripsi" required></textarea>
+                <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi"
+                    [ngModel]="post && post.content? post.content : null" name="deskripsi" required></textarea>
             </div>
         </div>
         <button pButton type="submit" style="width: 10em" icon="pi pi-check" label="Save Post" class="p-button-danger"

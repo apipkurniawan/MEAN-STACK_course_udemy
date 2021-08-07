@@ -24,6 +24,10 @@ const routes: Routes = [
     component: PostContainerComponent,
   },
   {
+    path: 'editPosting/:postId',
+    component: PostContainerComponent,
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },
