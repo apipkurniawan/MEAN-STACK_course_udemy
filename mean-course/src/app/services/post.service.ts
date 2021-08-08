@@ -17,8 +17,10 @@ export class PostService {
         private httpClient: HttpClient
     ) { }
 
-    getPosts() {
-        return this.httpClient.get<{ message: string, posts: any }>(API_URL)
+    getPosts(postsPerPage: number, currentPage: number) {
+        const queryParams = `?pageSize=${postsPerPage}&page=${currentPage}`;
+        console.log('param ', queryParams);
+        this.httpClient.get<{ message: string, posts: any }>(API_URL + queryParams)
             .pipe(map((postData) => {
                 return postData.posts.map(post => {
                     return {

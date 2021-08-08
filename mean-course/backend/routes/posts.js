@@ -27,6 +27,7 @@ const storage = multer.diskStorage({
 });
 
 // method APIS
+// simpan
 router.post('', multer({ storage: storage }).single('image'), (req, res, next) => {
     const url = `${req.protocol}://${req.get('host')}`;
     const post = new PostModel({
@@ -45,6 +46,7 @@ router.post('', multer({ storage: storage }).single('image'), (req, res, next) =
     });
 });
 
+// ubah
 router.put('/:id', multer({ storage: storage }).single('image'), (req, res, next) => {
     let imagePath = req.body.imagePath;
     if (req.file) {
@@ -63,16 +65,27 @@ router.put('/:id', multer({ storage: storage }).single('image'), (req, res, next
         });
 });
 
+// getAll
 router.get('', (req, res, next) => {
-    PostModel.find()
-        .then((documents) => {
-            res.status(200).json({
-                message: 'post fetched succesfully',
-                posts: documents
-            });
+    const pageSize = +req.query.pageSize;
+    const currentPage = +req.query.page;
+    const postQuery = PostModel.find();
+    console.log('pagesize ', pageSize);
+    console.log('currentpage ', currentPage);
+    if (pageSize && currentPage) {
+        postQuery
+            .skip(pageSize * (currentPage - 1))
+            .limit(pageSize);
+    }
+    postQuery.then((documents) => {
+        res.status(200).json({
+            message: 'post fetched succesfully',
+            posts: documents
         });
+    });
 });
 
+// getById
 router.get('/:id', (req, res, next) => {
     PostModel.findById(req.params.id)
         .then((post) => {
@@ -86,6 +99,7 @@ router.get('/:id', (req, res, next) => {
         });
 });
 
+// deleteById
 router.delete('/:id', (req, res, next) => {
     PostModel.deleteOne({ _id: req.params.id }).then(result => {
         res.status(200).json({
