@@ -1,6 +1,6 @@
 import { PostWrapper } from 'src/app/models/post-wrapper.model';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 @Component({
@@ -10,11 +10,11 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostCreateComponent implements OnInit {
 
-    postDesk: string;
-    postTitle: string;
     post: PostWrapper;
     isLoading = false;
     uploadedFiles: any[] = [];
+
+    form: FormGroup;
 
     private mode = 'create';
     private postId: string;
@@ -25,6 +25,10 @@ export class PostCreateComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.form = new FormGroup({
+            'title': new FormControl(null, { validators: [Validators.required, Validators.minLength(3)] }),
+            'content': new FormControl(null, { validators: [Validators.required] })
+        });
         this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
             if (param.has('postId')) {
                 this.mode = 'edit';
@@ -33,6 +37,10 @@ export class PostCreateComponent implements OnInit {
                 this.postService.getPostById(this.postId)
                     .subscribe(postData => {
                         this.post = { id: postData._id, title: postData.title, content: postData.content };
+                        this.form.setValue({
+                            title: this.post.title,
+                            content: this.post.content
+                        });
                         setTimeout(() => {
                             this.isLoading = false;
                         }, 1000);
@@ -44,16 +52,16 @@ export class PostCreateComponent implements OnInit {
         });
     }
 
-    onSavePost(form: NgForm) {
-        if (form.invalid) {
+    onSavePost() {
+        if (this.form.invalid) {
             return;
         }
         if (this.mode === 'create') {
-            this.postService.addPost(form.value.title, form.value.deskripsi);
+            this.postService.addPost(this.form.value.title, this.form.value.content);
         } else {
-            this.postService.updatePost(this.postId, form.value.title, form.value.deskripsi);
+            this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content);
         }
-        form.resetForm();
+        this.form.reset();
     }
 
     onUpload(e) {

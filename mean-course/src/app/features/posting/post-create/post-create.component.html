@@ -4,7 +4,7 @@
             animationDuration=".5s">
         </p-progressSpinner>
     </div>
-    <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+    <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
         <div class="ui-fluid">
             <div class="p-field">
                 <div class="p-grid">
@@ -12,9 +12,9 @@
                         <label for="title">Title</label>
                     </div>
                     <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
-                        <input type="text" id="title" pInputText [ngModel]="post && post.title? post.title : null"
-                            name="title" #title="ngModel" minlength="3" required>
-                        <div [hidden]="title.valid || title.pristine" style="color: red;" class="alert alert-danger">
+                        <input type="text" id="title" pInputText formControlName="title" name="title">
+                        <div *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)"
+                            style="color: red;" class="alert alert-danger">
                             Must be longer than 3 characters
                         </div>
                     </div>
@@ -23,11 +23,15 @@
             <div class="p-field">
                 <div class="p-grid">
                     <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
-                        <label for="deskripsi">Deskripsi</label>
+                        <label for="content">Deskripsi</label>
                     </div>
                     <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
-                        <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi"
-                            [ngModel]="post && post.content? post.content : null" name="deskripsi" required></textarea>
+                        <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" formControlName="content"
+                            id="content" name="content"></textarea>
+                        <div *ngIf="form.get('content').invalid && (form.get('content').dirty || form.get('content').touched)"
+                            style="color: red;" class="alert alert-danger">
+                            deskripsi is required
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,6 +45,6 @@
             </p-fileUpload>
         </div>
         <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check" label="Save Post"
-            class="p-button-danger" [disabled]="!postForm.form.valid"></button>
+            class="p-button-danger" [disabled]="!form.valid"></button>
     </form>
 </p-card>
