@@ -21,10 +21,12 @@ export class PostService {
         return this.httpClient.get<{ message: string, posts: any }>(API_URL)
             .pipe(map((postData) => {
                 return postData.posts.map(post => {
+                    console.log('post', post)
                     return {
                         title: post.title,
                         content: post.content,
-                        id: post._id
+                        id: post._id,
+                        imagePath: post.imagePath
                     };
                 });
             }))
@@ -47,16 +49,21 @@ export class PostService {
         postData.append('title', title);
         postData.append('content', content);
         postData.append('image', image, title);
-        this.httpClient.post<{ message: string, postId: string }>(API_URL, postData)
+        this.httpClient.post<{ message: string, post: PostWrapper }>(API_URL, postData)
             .subscribe(responseData => {
-                const post: PostWrapper = { id: responseData.postId, title, content };
+                const post: PostWrapper = {
+                    id: responseData.post.id,
+                    title,
+                    content,
+                    imagePath: responseData.post.imagePath
+                };
                 this.posts.push(post);
                 this.postUpdated.next([...this.posts]);
             });
     }
 
     updatePost(id: string, title: string, content: string) {
-        const post: PostWrapper = { id, title, content };
+        const post: PostWrapper = { id, title, content, imagePath: null };
         this.httpClient.put(`${API_URL}/${id}`, post)
             .subscribe(response => {
                 const updatedPosts = [...this.posts];
