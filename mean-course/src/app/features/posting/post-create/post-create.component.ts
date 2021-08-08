@@ -76,6 +76,5 @@ export class PostCreateComponent implements OnInit {
 
     setImage(event) {
         this.image = event.files[0];
-        console.log('image', this.image);
     }
 }

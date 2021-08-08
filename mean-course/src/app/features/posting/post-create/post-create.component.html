@@ -36,7 +36,7 @@
                 </div>
             </div>
             <p-fileUpload (uploadHandler)="setImage($event)" customUpload="true" multiple="multiple" accept="image/*"
-                maxFileSize="1000000" chooseLabel="Choose Image" auto="true">
+                maxFileSize="1000000" chooseLabel="Choose Image" auto="true" previewWidth="150">
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
                         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
