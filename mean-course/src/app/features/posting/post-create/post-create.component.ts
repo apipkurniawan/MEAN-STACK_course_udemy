@@ -1,8 +1,11 @@
-import { PostWrapper } from 'src/app/models/post-wrapper.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+
+import { mimeType } from "./mime-type.validator";
+import { PostWrapper } from 'src/app/models/post-wrapper.model';
 import { PostService } from 'src/app/services/post.service';
+
 @Component({
     selector: 'app-post-create',
     templateUrl: './post-create.component.html'
@@ -13,7 +16,7 @@ export class PostCreateComponent implements OnInit {
     post: PostWrapper;
     isLoading = false;
     uploadedFiles: any[] = [];
-
+    image: any;
     form: FormGroup;
 
     private mode = 'create';
@@ -52,19 +55,20 @@ export class PostCreateComponent implements OnInit {
         });
     }
 
-    onSavePost() {
+    saveData() {
         if (this.form.invalid) {
             return;
         }
         if (this.mode === 'create') {
-            this.postService.addPost(this.form.value.title, this.form.value.content);
+            this.postService.addPost(this.form.value.title, this.form.value.content, this.image);
         } else {
             this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content);
         }
         this.form.reset();
     }
 
-    onUpload(e) {
-
+    onUpload(event) {
+        this.image = event.files[0];
+        this.saveData();
     }
 }

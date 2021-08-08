@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "mongoose": "^5.13.5",
+    "multer": "^1.4.2",
     "ngx-swiper-wrapper": "^10.0.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",

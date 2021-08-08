@@ -42,12 +42,14 @@ export class PostService {
         return this.postUpdated.asObservable();
     }
 
-    addPost(title: string, content: string) {
-        const post: PostWrapper = { id: null, title, content };
-        this.httpClient.post<{ message: string, postId: string }>(API_URL, post)
+    addPost(title: string, content: string, image: File) {
+        const postData = new FormData();
+        postData.append('title', title);
+        postData.append('content', content);
+        postData.append('image', image, title);
+        this.httpClient.post<{ message: string, postId: string }>(API_URL, postData)
             .subscribe(responseData => {
-                const postId = responseData.postId;
-                post.id = postId;
+                const post: PostWrapper = { id: responseData.postId, title, content };
                 this.posts.push(post);
                 this.postUpdated.next([...this.posts]);
             });
