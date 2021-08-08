@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 import { mimeType } from "./mime-type.validator";
@@ -9,8 +9,8 @@ import { PostService } from 'src/app/services/post.service';
 
 @Component({
     selector: 'app-post-create',
-    templateUrl: './post-create.component.html'
-    // styleUrls: ['./post-create.component.css']
+    templateUrl: './post-create.component.html',
+    styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
 
@@ -19,6 +19,7 @@ export class PostCreateComponent implements OnInit {
     uploadedFiles: any[] = [];
     image: any;
     form: FormGroup;
+    isUpdatedMode: boolean;
 
     private mode = 'create';
     private postId: string;
@@ -26,7 +27,8 @@ export class PostCreateComponent implements OnInit {
     constructor(
         public postService: PostService,
         private messageService: MessageService,
-        public activatedRoute: ActivatedRoute
+        public activatedRoute: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -51,12 +53,14 @@ export class PostCreateComponent implements OnInit {
                             title: this.post.title,
                             content: this.post.content
                         });
+                        this.isUpdatedMode = true;
                         setTimeout(() => {
                             this.isLoading = false;
                         }, 1000);
                     });
             } else {
                 this.mode = 'create';
+                this.isUpdatedMode = false;
                 this.postId = null;
             }
         });
@@ -75,6 +79,7 @@ export class PostCreateComponent implements OnInit {
             await this.postService.addPost(this.form.value.title, this.form.value.content, this.image).toPromise();
         } else {
             await this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.image).toPromise();
+            this.router.navigate(['/posting']);
         }
         this.postService.getPosts();
         this.form.reset();
@@ -82,5 +87,6 @@ export class PostCreateComponent implements OnInit {
 
     setImage(event) {
         this.image = event.files[0];
+        this.isUpdatedMode = false;
     }
 }
