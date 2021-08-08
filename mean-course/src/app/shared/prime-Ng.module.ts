@@ -14,6 +14,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { MenubarModule } from 'primeng/menubar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
     imports: [],
     exports: [
@@ -30,7 +31,8 @@ import { FileUploadModule } from 'primeng/fileupload';
         AccordionModule,
         MenubarModule,
         ProgressSpinnerModule,
-        FileUploadModule
+        FileUploadModule,
+        PaginatorModule
     ],
     declarations: []
 })

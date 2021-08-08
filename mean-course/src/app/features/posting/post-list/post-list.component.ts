@@ -15,6 +15,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     private postSub: Subscription;
     isLoading = false;
 
+    rowsPerPage = [5, 10, 20];
+    totalRows = 120;
+    row = 5;
+
     constructor(public postService: PostService, private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
