@@ -57,7 +57,7 @@ export class PostCreateComponent implements OnInit {
         });
     }
 
-    saveData() {
+    onSaveData() {
         if (this.form.invalid) {
             this.messageService.add({
                 severity: 'warn',
@@ -74,8 +74,8 @@ export class PostCreateComponent implements OnInit {
         this.form.reset();
     }
 
-    onUpload(event) {
+    setImage(event) {
         this.image = event.files[0];
-        this.saveData();
+        console.log('image', this.image);
     }
 }

@@ -4,8 +4,7 @@
             animationDuration=".5s">
         </p-progressSpinner>
     </div>
-    <!-- (submit)="saveData()" -->
-    <form [formGroup]="form" *ngIf="!isLoading">
+    <form [formGroup]="form" (submit)="onSaveData()" *ngIf="!isLoading">
         <div class="ui-fluid">
             <div class="p-field">
                 <div class="p-grid">
@@ -36,9 +35,8 @@
                     </div>
                 </div>
             </div>
-            <p-fileUpload (uploadHandler)="onUpload($event)" customUpload="true" multiple="multiple" accept="image/*"
-                maxFileSize="1000000" [disabled]="!form.valid" uploadLabel="Save Post" uploadIcon="pi pi-save"
-                chooseLabel="Choose Image">
+            <p-fileUpload (uploadHandler)="setImage($event)" customUpload="true" multiple="multiple" accept="image/*"
+                maxFileSize="1000000" chooseLabel="Choose Image" auto="true">
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
                         <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -46,7 +44,7 @@
                 </ng-template>
             </p-fileUpload>
         </div>
-        <!-- <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check" label="Save Post"
-            class="p-button-danger" [disabled]="!form.valid"></button> -->
+        <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check" label="Save Post"
+            class="p-button-danger" [disabled]="!form.valid"></button>
     </form>
 </p-card>
