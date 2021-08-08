@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NoDecimalPipe } from './pipes/no-decimal.pipe';
@@ -17,7 +17,8 @@ import '../core/array.prototype';
         FormsModule,
         BrowserAnimationsModule,
         BrowserModule,
-        NoDecimalPipe
+        NoDecimalPipe,
+        ReactiveFormsModule
     ],
     declarations: [
         NoDecimalPipe

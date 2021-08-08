@@ -7,20 +7,40 @@
     <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
         <div class="ui-fluid">
             <div class="p-field">
-                <label for="title">Title</label><br>
-                <input type="text" id="title" pInputText [ngModel]="post && post.title? post.title : null" name="title"
-                    #title="ngModel" minlength="3" required>
-                <div [hidden]="title.valid || title.pristine" style="color: red;" class="alert alert-danger">
-                    Must be longer than 3 characters
+                <div class="p-grid">
+                    <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
+                        <input type="text" id="title" pInputText [ngModel]="post && post.title? post.title : null"
+                            name="title" #title="ngModel" minlength="3" required>
+                        <div [hidden]="title.valid || title.pristine" style="color: red;" class="alert alert-danger">
+                            Must be longer than 3 characters
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="p-field">
-                <label for="deskripsi">Deskripsi</label><br>
-                <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi"
-                    [ngModel]="post && post.content? post.content : null" name="deskripsi" required></textarea>
+                <div class="p-grid">
+                    <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
+                        <label for="deskripsi">Deskripsi</label>
+                    </div>
+                    <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
+                        <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" id="deskripsi"
+                            [ngModel]="post && post.content? post.content : null" name="deskripsi" required></textarea>
+                    </div>
+                </div>
             </div>
+            <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" multiple="multiple"
+                accept="image/*" maxFileSize="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
         </div>
-        <button pButton type="submit" style="width: 10em" icon="pi pi-check" label="Save Post" class="p-button-danger"
-            [disabled]="!postForm.form.valid"></button>
+        <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check" label="Save Post"
+            class="p-button-danger" [disabled]="!postForm.form.valid"></button>
     </form>
 </p-card>

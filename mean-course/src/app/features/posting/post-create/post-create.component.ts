@@ -14,6 +14,7 @@ export class PostCreateComponent implements OnInit {
     postTitle: string;
     post: PostWrapper;
     isLoading = false;
+    uploadedFiles: any[] = [];
 
     private mode = 'create';
     private postId: string;
@@ -53,5 +54,9 @@ export class PostCreateComponent implements OnInit {
             this.postService.updatePost(this.postId, form.value.title, form.value.deskripsi);
         }
         form.resetForm();
+    }
+
+    onUpload(e) {
+
     }
 }
