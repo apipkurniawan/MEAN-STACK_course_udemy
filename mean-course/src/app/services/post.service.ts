@@ -11,7 +11,7 @@ const API_URL = environment.DEV_API_URL_AUTH + '/posts';
 })
 export class PostService {
     private posts: PostWrapper[] = [];
-    private postUpdated = new Subject<PostWrapper[]>();
+    private postUpdated = new Subject<{ posts: PostWrapper[], postCount: number }>();
 
     constructor(
         private httpClient: HttpClient
@@ -20,20 +20,26 @@ export class PostService {
     getPosts(postsPerPage: number, currentPage: number) {
         const queryParams = `?pageSize=${postsPerPage}&page=${currentPage}`;
         console.log('param ', queryParams);
-        this.httpClient.get<{ message: string, posts: any }>(API_URL + queryParams)
+        this.httpClient.get<{ message: string, posts: any, maxPosts: number }>(API_URL + queryParams)
             .pipe(map((postData) => {
-                return postData.posts.map(post => {
-                    return {
-                        title: post.title,
-                        content: post.content,
-                        id: post._id,
-                        imagePath: post.imagePath
-                    };
-                });
+                return {
+                    posts: postData.posts.map(post => {
+                        return {
+                            title: post.title,
+                            content: post.content,
+                            id: post._id,
+                            imagePath: post.imagePath
+                        };
+                    }),
+                    maxPosts: postData.maxPosts
+                };
             }))
-            .subscribe(transformedPost => {
-                this.posts = transformedPost;
-                this.postUpdated.next([...this.posts]);
+            .subscribe(transformedPostData => {
+                this.posts = transformedPostData.posts;
+                this.postUpdated.next({
+                    posts: [...this.posts],
+                    postCount: transformedPostData.maxPosts
+                });
             });
     }
 
@@ -51,16 +57,6 @@ export class PostService {
         postData.append('content', content);
         postData.append('image', image, title);
         return this.httpClient.post<{ message: string, post: PostWrapper }>(API_URL, postData);
-        // .subscribe(responseData => {
-        //     const post: PostWrapper = {
-        //         id: responseData.post.id,
-        //         title,
-        //         content,
-        //         imagePath: responseData.post.imagePath
-        //     };
-        //     this.posts.push(post);
-        //     this.postUpdated.next([...this.posts]);
-        // });
     }
 
     updatePost(id: string, title: string, content: string, image: File | string) {
@@ -75,22 +71,9 @@ export class PostService {
             postData = { id, title, content, imagePath: image };
         }
         return this.httpClient.put(`${API_URL}/${id}`, postData);
-        // .subscribe(response => {
-        //     const updatedPosts = [...this.posts];
-        //     const oldPostIndex = updatedPosts.findIndex(p => p.id == id);
-        //     const post = { id, title, content, imagePath: response.imagePath };
-        //     updatedPosts[oldPostIndex] = post;
-        //     this.posts = updatedPosts;
-        //     this.postUpdated.next([...this.posts]);
-        // });
     }
 
     deletePost(id: string) {
-        this.httpClient.delete(`${API_URL}/${id}`)
-            .subscribe(() => {
-                const updatedPosts = this.posts.filter(post => post.id !== id);
-                this.posts = updatedPosts;
-                this.postUpdated.next([...this.posts]);
-            });
+        return this.httpClient.delete(`${API_URL}/${id}`);
     }
 }

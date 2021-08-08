@@ -16,7 +16,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     isLoading = false;
 
     rowsPerPage = [2, 3, 5];
-    totalRows = 10;
+    totalRows = 0;
     row = 2;
 
     constructor(public postService: PostService, private activatedRoute: ActivatedRoute) { }
@@ -34,8 +34,9 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     fetchData(row: number, currentPage: number) {
         this.postService.getPosts(row, currentPage);
-        this.postSub = this.postService.getPostUpdateListener().subscribe((post: PostWrapper[]) => {
-            this.posts = post;
+        this.postSub = this.postService.getPostUpdateListener().subscribe((postData: { posts: PostWrapper[], postCount: number }) => {
+            this.posts = postData.posts;
+            this.totalRows = postData.postCount;
             setTimeout(() => {
                 this.isLoading = false;
             }, 1000);
@@ -46,8 +47,9 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.postSub.unsubscribe();
     }
 
-    onDelete(postId: string) {
-        this.postService.deletePost(postId);
+    async onDelete(postId: string) {
+        await this.postService.deletePost(postId).toPromise();
+        this.fetchData(this.row, 1);
     }
 
     paginate(pageData) {

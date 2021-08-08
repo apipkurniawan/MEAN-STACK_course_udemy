@@ -70,19 +70,23 @@ router.get('', (req, res, next) => {
     const pageSize = +req.query.pageSize;
     const currentPage = +req.query.page;
     const postQuery = PostModel.find();
-    console.log('pagesize ', pageSize);
-    console.log('currentpage ', currentPage);
+    let fetchedPosts;
     if (pageSize && currentPage) {
         postQuery
             .skip(pageSize * (currentPage - 1))
             .limit(pageSize);
     }
-    postQuery.then((documents) => {
-        res.status(200).json({
-            message: 'post fetched succesfully',
-            posts: documents
+    postQuery
+        .then((documents) => {
+            fetchedPosts = documents;
+            return PostModel.count();
+        }).then(count => {
+            res.status(200).json({
+                message: 'post fetched succesfully',
+                posts: fetchedPosts,
+                maxPosts: count
+            });
         });
-    });
 });
 
 // getById
