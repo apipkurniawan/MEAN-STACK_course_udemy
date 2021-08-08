@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import { mimeType } from "./mime-type.validator";
 import { PostWrapper } from 'src/app/models/post-wrapper.model';
@@ -24,6 +25,7 @@ export class PostCreateComponent implements OnInit {
 
     constructor(
         public postService: PostService,
+        private messageService: MessageService,
         public activatedRoute: ActivatedRoute
     ) { }
 
@@ -57,6 +59,11 @@ export class PostCreateComponent implements OnInit {
 
     saveData() {
         if (this.form.invalid) {
+            this.messageService.add({
+                severity: 'warn',
+                summary: 'Warning',
+                detail: 'Gagal simpan, Form tidak valid!'
+            });
             return;
         }
         if (this.mode === 'create') {
