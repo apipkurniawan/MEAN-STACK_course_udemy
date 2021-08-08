@@ -45,7 +45,7 @@ export class PostCreateComponent implements OnInit {
                             id: postData._id,
                             title: postData.title,
                             content: postData.content,
-                            imagePath: null
+                            imagePath: postData.imagePath
                         };
                         this.form.setValue({
                             title: this.post.title,
@@ -62,7 +62,7 @@ export class PostCreateComponent implements OnInit {
         });
     }
 
-    onSaveData() {
+    async onSaveData() {
         if (this.form.invalid) {
             this.messageService.add({
                 severity: 'warn',
@@ -72,13 +72,11 @@ export class PostCreateComponent implements OnInit {
             return;
         }
         if (this.mode === 'create') {
-            this.postService.addPost(this.form.value.title, this.form.value.content, this.image)
-                .subscribe(() => {
-                    this.postService.getPosts();
-                });
+            await this.postService.addPost(this.form.value.title, this.form.value.content, this.image).toPromise();
         } else {
-            this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content);
+            await this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.image).toPromise();
         }
+        this.postService.getPosts();
         this.form.reset();
     }
 

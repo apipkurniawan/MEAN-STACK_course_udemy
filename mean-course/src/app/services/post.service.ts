@@ -36,7 +36,7 @@ export class PostService {
     }
 
     getPostById(id: string) {
-        return this.httpClient.get<{ _id: string, title: string, content: string }>(`${API_URL}/${id}`);
+        return this.httpClient.get<{ _id: string, title: string, content: string, imagePath: string }>(`${API_URL}/${id}`);
     }
 
     getPostUpdateListener() {
@@ -61,16 +61,26 @@ export class PostService {
         // });
     }
 
-    updatePost(id: string, title: string, content: string) {
-        const post: PostWrapper = { id, title, content, imagePath: null };
-        this.httpClient.put(`${API_URL}/${id}`, post)
-            .subscribe(response => {
-                const updatedPosts = [...this.posts];
-                const oldPostIndex = updatedPosts.findIndex(p => p.id == post.id);
-                updatedPosts[oldPostIndex] = post;
-                this.posts = updatedPosts;
-                this.postUpdated.next([...this.posts]);
-            });
+    updatePost(id: string, title: string, content: string, image: File | string) {
+        let postData: FormData | PostWrapper;
+        if (typeof (image) === 'object') {
+            postData = new FormData();
+            postData.append('id', id);
+            postData.append('title', title);
+            postData.append('content', content);
+            postData.append('image', image, title);
+        } else {
+            postData = { id, title, content, imagePath: image };
+        }
+        return this.httpClient.put(`${API_URL}/${id}`, postData);
+        // .subscribe(response => {
+        //     const updatedPosts = [...this.posts];
+        //     const oldPostIndex = updatedPosts.findIndex(p => p.id == id);
+        //     const post = { id, title, content, imagePath: response.imagePath };
+        //     updatedPosts[oldPostIndex] = post;
+        //     this.posts = updatedPosts;
+        //     this.postUpdated.next([...this.posts]);
+        // });
     }
 
     deletePost(id: string) {
