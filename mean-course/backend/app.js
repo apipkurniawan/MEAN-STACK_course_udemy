@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const postRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
 
 // konfigurasi express
 const app = express();
@@ -33,5 +34,6 @@ app.use((req, res, next) => {
 
 // konfigurasi method APIS
 app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
 
 module.exports = app;
