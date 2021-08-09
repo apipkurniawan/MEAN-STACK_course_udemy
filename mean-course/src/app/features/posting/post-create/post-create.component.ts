@@ -77,11 +77,10 @@ export class PostCreateComponent implements OnInit {
         }
         if (this.mode === 'create') {
             await this.postService.addPost(this.form.value.title, this.form.value.content, this.image).toPromise();
-            this.postService.getPosts();
         } else {
             await this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.image).toPromise();
-            this.router.navigate(['/posting']);
         }
+        this.router.navigate(['/posting']);
         this.form.reset();
     }
 
