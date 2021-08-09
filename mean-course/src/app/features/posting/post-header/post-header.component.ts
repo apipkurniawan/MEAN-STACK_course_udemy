@@ -30,4 +30,8 @@ export class PostHeaderComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
+    showSignUp() {
+        this.router.navigate(['/signup']);
+    }
+
 }
