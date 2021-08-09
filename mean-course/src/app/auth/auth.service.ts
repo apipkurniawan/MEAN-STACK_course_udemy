@@ -22,4 +22,12 @@ export class AuthService {
                 console.log(response);
             });
     }
+
+    login(email: string, password: string) {
+        const authData: AuthDataWrapper = { email, password };
+        this.httpClient.post(API_URL + '/login', authData)
+            .subscribe(response => {
+                console.log(response);
+            });
+    }
 }
