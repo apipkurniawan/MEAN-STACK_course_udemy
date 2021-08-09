@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CalculatorComponent } from '../app/features/calculator/calculator.component';
 import { DashboardComponent } from '../app/features/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SignUpComponent } from './auth/signup/signup.component';
 import { PostContainerComponent } from './features/posting/post-container.component';
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent
   },
   {
     path: 'calculator',
