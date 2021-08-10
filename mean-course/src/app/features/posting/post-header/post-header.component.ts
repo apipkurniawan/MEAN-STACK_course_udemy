@@ -63,7 +63,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
     }
 
     onLogOut() {
-        // ...
+        this.authService.logout();
     }
 
     showSignUp() {
