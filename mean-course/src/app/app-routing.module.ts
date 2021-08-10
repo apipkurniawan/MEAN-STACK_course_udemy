@@ -9,6 +9,8 @@ import { PostCreateComponent } from './features/posting/post-create/post-create.
 import { PostListComponent } from './features/posting/post-list/post-list.component';
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
+import { AuthGuard } from './auth/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -37,10 +39,12 @@ const routes: Routes = [
   {
     path: 'post-create',
     component: PostCreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'editPosting/:postId',
     component: PostCreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -50,6 +54,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
