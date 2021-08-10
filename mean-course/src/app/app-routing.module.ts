@@ -5,13 +5,14 @@ import { CalculatorComponent } from '../app/features/calculator/calculator.compo
 import { DashboardComponent } from '../app/features/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignUpComponent } from './auth/signup/signup.component';
-import { PostContainerComponent } from './features/posting/post-container.component';
+import { PostCreateComponent } from './features/posting/post-create/post-create.component';
+import { PostListComponent } from './features/posting/post-list/post-list.component';
 import { PageNotFoundComponent } from './shared/layout/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard', pathMatch: 'full'
+    redirectTo: '/post-list', pathMatch: 'full'
   },
   {
     path: 'dashboard',
@@ -30,12 +31,16 @@ const routes: Routes = [
     component: CalculatorComponent
   },
   {
-    path: 'posting',
-    component: PostContainerComponent,
+    path: 'post-list',
+    component: PostListComponent,
+  },
+  {
+    path: 'post-create',
+    component: PostCreateComponent,
   },
   {
     path: 'editPosting/:postId',
-    component: PostContainerComponent,
+    component: PostCreateComponent,
   },
   {
     path: '**',

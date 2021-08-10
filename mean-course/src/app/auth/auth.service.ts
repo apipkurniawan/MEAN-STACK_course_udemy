@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthDataWrapper } from './auth-data.model';
@@ -13,22 +13,23 @@ const API_URL = environment.DEV_API_URL_AUTH + '/users';
 export class AuthService {
 
     private token: string;
+    private authStatusListener = new Subject<boolean>();
 
     constructor(
-        private httpClient: HttpClient,
-        private router: Router
+        private httpClient: HttpClient
     ) { }
 
     getToken() {
         return this.token;
     }
 
+    getAuthStatusListener() {
+        return this.authStatusListener.asObservable();
+    }
+
     createUser(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
-        this.httpClient.post(API_URL + '/signup', authData)
-            .subscribe(response => {
-                console.log(response);
-            });
+        return this.httpClient.post(API_URL + '/signup', authData);
     }
 
     login(email: string, password: string) {
@@ -36,8 +37,7 @@ export class AuthService {
         this.httpClient.post<{ token: string }>(API_URL + '/login', authData)
             .subscribe(response => {
                 this.token = response.token;
-                console.log('token', this.token);
-                this.router.navigate(['/posting']);
+                this.authStatusListener.next(true);
             });
     }
 }

@@ -80,7 +80,11 @@ export class PostCreateComponent implements OnInit {
         } else {
             await this.postService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.image).toPromise();
         }
-        this.router.navigate(['/posting']);
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Info',
+            detail: 'Post anda berhasil tersimpan!'
+        });
         this.form.reset();
     }
 

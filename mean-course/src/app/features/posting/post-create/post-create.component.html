@@ -1,53 +1,62 @@
-<p-card header="Write your post" styleClass="ui-card-shadow">
-    <div class="loading" *ngIf="isLoading">
-        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE"
-            animationDuration=".5s">
-        </p-progressSpinner>
+<app-post-header></app-post-header>
+
+<div class="p-grid" style="margin-top: .5em;">
+    <div class="p-col-6 p-offset-3">
+
+        <p-card header="Write your post" styleClass="ui-card-shadow">
+            <div class="loading" *ngIf="isLoading">
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE"
+                    animationDuration=".5s">
+                </p-progressSpinner>
+            </div>
+            <form [formGroup]="form" (submit)="onSaveData()" *ngIf="!isLoading">
+                <div class="ui-fluid">
+                    <div class="p-field">
+                        <div class="p-grid">
+                            <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
+                                <label for="title">Title</label>
+                            </div>
+                            <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
+                                <input type="text" id="title" pInputText formControlName="title" name="title">
+                                <div *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)"
+                                    style="color: red;" class="alert alert-danger">
+                                    Must be longer than 3 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-field">
+                        <div class="p-grid">
+                            <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
+                                <label for="content">Deskripsi</label>
+                            </div>
+                            <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
+                                <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize"
+                                    formControlName="content" id="content" name="content"></textarea>
+                                <div *ngIf="form.get('content').invalid && (form.get('content').dirty || form.get('content').touched)"
+                                    style="color: red;" class="alert alert-danger">
+                                    deskripsi is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p-fileUpload (uploadHandler)="setImage($event)" customUpload="true" multiple="multiple"
+                        accept="image/*" maxFileSize="1000000" chooseLabel="Choose Image" auto="true"
+                        previewWidth="150">
+                        <ng-template pTemplate="content">
+                            <div class="p-grid post-image" *ngIf="isUpdatedMode">
+                                <img [src]="post.imagePath" [alt]="post.title">
+                            </div>
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check"
+                    label="Save Post" class="p-button-danger" [disabled]="!form.valid"></button>
+            </form>
+        </p-card>
+
     </div>
-    <form [formGroup]="form" (submit)="onSaveData()" *ngIf="!isLoading">
-        <div class="ui-fluid">
-            <div class="p-field">
-                <div class="p-grid">
-                    <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
-                        <label for="title">Title</label>
-                    </div>
-                    <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
-                        <input type="text" id="title" pInputText formControlName="title" name="title">
-                        <div *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)"
-                            style="color: red;" class="alert alert-danger">
-                            Must be longer than 3 characters
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-field">
-                <div class="p-grid">
-                    <div class="p-col-2 p-sm-2 p-md-2 p-lg-2">
-                        <label for="content">Deskripsi</label>
-                    </div>
-                    <div class="p-col-10 p-sm-10 p-md-10 p-lg-10">
-                        <textarea rows="5" cols="50" pInputTextarea autoResize="autoResize" formControlName="content"
-                            id="content" name="content"></textarea>
-                        <div *ngIf="form.get('content').invalid && (form.get('content').dirty || form.get('content').touched)"
-                            style="color: red;" class="alert alert-danger">
-                            deskripsi is required
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p-fileUpload (uploadHandler)="setImage($event)" customUpload="true" multiple="multiple" accept="image/*"
-                maxFileSize="1000000" chooseLabel="Choose Image" auto="true" previewWidth="150">
-                <ng-template pTemplate="content">
-                    <div class="p-grid post-image" *ngIf="isUpdatedMode">
-                        <img [src]="post.imagePath" [alt]="post.title">
-                    </div>
-                    <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                    </ul>
-                </ng-template>
-            </p-fileUpload>
-        </div>
-        <button pButton type="submit" style="width: 10em; margin-top: .5em;" icon="pi pi-check" label="Save Post"
-            class="p-button-danger" [disabled]="!form.valid"></button>
-    </form>
-</p-card>
+</div>

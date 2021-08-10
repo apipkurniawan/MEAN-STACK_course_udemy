@@ -1,5 +1,8 @@
 <p-menubar [model]="items">
-    <button pButton label="SignUp" icon="pi pi-user-plus" class="p-button-secondary"
-        (click)="showSignUp()"></button>&nbsp;
-    <button pButton label="LogIn" icon="pi pi-sign-in" class="p-button-secondary" (click)="showLogin()"></button>
+    <button pButton label="SignUp" icon="pi pi-user-plus" class="p-button-secondary" (click)="showSignUp()"
+        *ngIf="!userIsAuthenticated"></button>&nbsp;
+    <button pButton label="LogIn" icon="pi pi-sign-in" class="p-button-secondary" (click)="onLogIn()"
+        *ngIf="!userIsAuthenticated"></button>&nbsp;
+    <button pButton label="LogOut" icon="pi pi-sign-out" class="p-button-secondary" (click)="onLogOut()"
+        *ngIf="userIsAuthenticated"></button>
 </p-menubar>

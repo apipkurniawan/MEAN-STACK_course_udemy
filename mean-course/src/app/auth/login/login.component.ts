@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private messageService: MessageService
     ) { }
 
     ngOnInit(): void {
@@ -21,5 +23,10 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.authService.login(form.value.email, form.value.password);
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Info',
+            detail: 'anda berhasil login!'
+        });
     }
 }
