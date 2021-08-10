@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
@@ -11,9 +12,16 @@ const API_URL = environment.DEV_API_URL_AUTH + '/users';
 })
 export class AuthService {
 
+    private token: string;
+
     constructor(
-        private httpClient: HttpClient
+        private httpClient: HttpClient,
+        private router: Router
     ) { }
+
+    getToken() {
+        return this.token;
+    }
 
     createUser(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
@@ -25,9 +33,11 @@ export class AuthService {
 
     login(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
-        this.httpClient.post(API_URL + '/login', authData)
+        this.httpClient.post<{ token: string }>(API_URL + '/login', authData)
             .subscribe(response => {
-                console.log(response);
+                this.token = response.token;
+                console.log('token', this.token);
+                this.router.navigate(['/posting']);
             });
     }
 }
