@@ -12,6 +12,7 @@ const API_URL = environment.DEV_API_URL_AUTH + '/users';
 })
 export class AuthService {
 
+    isAuthenticated = false;
     private token: string;
     private authStatusListener = new Subject<boolean>();
 
@@ -21,6 +22,10 @@ export class AuthService {
 
     getToken() {
         return this.token;
+    }
+
+    getIsAuth() {
+        return this.isAuthenticated;
     }
 
     getAuthStatusListener() {
@@ -37,7 +42,10 @@ export class AuthService {
         this.httpClient.post<{ token: string }>(API_URL + '/login', authData)
             .subscribe(response => {
                 this.token = response.token;
-                this.authStatusListener.next(true);
+                if (this.token) {
+                    this.isAuthenticated = true;
+                    this.authStatusListener.next(true);
+                }
             });
     }
 }

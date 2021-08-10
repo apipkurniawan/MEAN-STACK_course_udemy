@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostWrapper } from '../../../models/post-wrapper.model';
 import { PostService } from 'src/app/services/post.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
     selector: 'app-post-list',
@@ -14,12 +15,18 @@ export class PostListComponent implements OnInit, OnDestroy {
     posts: PostWrapper[] = [];
     private postSub: Subscription;
     isLoading = false;
+    userIsAuthenticated = false;
+    private authListenerSubs: Subscription;
 
     rowsPerPage = [2, 3, 5];
     totalRows = 0;
     row = 2;
 
-    constructor(public postService: PostService, private activatedRoute: ActivatedRoute) { }
+    constructor(
+        public postService: PostService,
+        private activatedRoute: ActivatedRoute,
+        private authService: AuthService
+    ) { }
 
     ngOnInit(): void {
         this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
@@ -41,10 +48,16 @@ export class PostListComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
             }, 1000);
         });
+        this.userIsAuthenticated = this.authService.getIsAuth();
+        this.authListenerSubs = this.authService.getAuthStatusListener()
+            .subscribe(isAuthenticated => {
+                this.userIsAuthenticated = isAuthenticated;
+            });
     }
 
     ngOnDestroy() {
         this.postSub.unsubscribe();
+        this.authListenerSubs.unsubscribe();
     }
 
     async onDelete(postId: string) {
