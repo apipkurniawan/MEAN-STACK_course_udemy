@@ -21,6 +21,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
+        this.userIsAuthenticated = this.authService.getIsAuth();
         this.setItemsNavbar();
         this.authListenerSubs = this.authService.getAuthStatusListener()
             .subscribe(isAuthenticated => {
@@ -38,7 +39,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
             {
                 label: 'My Messages',
                 icon: 'pi pi-fw pi-envelope',
-                routerLink: '/post-list'
+                routerLink: '/'
             },
             {
                 label: 'New Post',
@@ -47,6 +48,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
                 visible: this.userIsAuthenticated
             }
         ];
+        console.log('setItems ', this.items);
     }
 
     handleNavbar(labels: string[], isAuth: boolean) {
@@ -56,6 +58,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
             }
             return e;
         });
+        console.log('handleItems ', this.items);
     }
 
     onLogIn() {

@@ -5,7 +5,7 @@ const UserModel = require('../models/user');
 
 const router = express.Router();
 
-// method APIS
+// method APIs
 // simpan user
 router.post('/signup', (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -64,7 +64,7 @@ router.post('/login', (req, res, next) => {
                 'secret_this_should_be_longer',
                 { expiresIn: '1h' }
             );
-            res.status(200).json({ token });
+            res.status(200).json({ token, expiresIn: 3600 });
         })
         .catch(err => {
             return res.status(401).json({
