@@ -46,7 +46,7 @@ export class PostService {
     }
 
     getPostById(id: string) {
-        return this.httpClient.get<{ _id: string, title: string, content: string, imagePath: string }>(`${API_URL}/${id}`);
+        return this.httpClient.get<{ _id: string, title: string, content: string, imagePath: string, creator: string }>(`${API_URL}/${id}`);
     }
 
     getPostUpdateListener() {
@@ -70,7 +70,7 @@ export class PostService {
             postData.append('content', content);
             postData.append('image', image, title);
         } else {
-            postData = { id, title, content, imagePath: image };
+            postData = { id, title, content, imagePath: image, creator: null };
         }
         return this.httpClient.put(`${API_URL}/${id}`, postData);
     }

@@ -21,13 +21,13 @@
                             <img [src]="post.imagePath" [alt]="post.title">
                         </div>
                         <div class="p-grid" style="margin-top: 1em; text-align: right;">
-                            <div class="p-col">
-                                <a [routerLink]="['/editPosting', post.id]" *ngIf="userIsAuthenticated">
+                            <div class="p-col" *ngIf="userIsAuthenticated && userId === post.creator">
+                                <a [routerLink]="['/editPosting', post.id]">
                                     <button pButton type="button" icon="pi pi-pencil" label="Edit"
                                         class="p-button-success"></button>&nbsp;
                                 </a>
                                 <button pButton type="button" icon="pi pi-trash" label="Delete" class="p-button-warning"
-                                    (click)="onDelete(post.id)" *ngIf="userIsAuthenticated"></button>
+                                    (click)="onDelete(post.id)"></button>
                             </div>
                         </div>
                     </p-accordionTab>

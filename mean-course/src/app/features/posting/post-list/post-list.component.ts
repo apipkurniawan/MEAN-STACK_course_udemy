@@ -16,6 +16,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     private postSub: Subscription;
     isLoading = false;
     userIsAuthenticated = false;
+    userId: string;
     private authListenerSubs: Subscription;
 
     rowsPerPage = [2, 3, 5];
@@ -41,6 +42,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     fetchData(row: number, currentPage: number) {
         this.postService.getPosts(row, currentPage);
+        this.userId = this.authService.getUserId();
         this.postSub = this.postService.getPostUpdateListener().subscribe((postData: { posts: PostWrapper[], postCount: number }) => {
             this.posts = postData.posts;
             this.totalRows = postData.postCount;
@@ -52,6 +54,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.authListenerSubs = this.authService.getAuthStatusListener()
             .subscribe(isAuthenticated => {
                 this.userIsAuthenticated = isAuthenticated;
+                this.userId = this.authService.getUserId();
             });
     }
 
