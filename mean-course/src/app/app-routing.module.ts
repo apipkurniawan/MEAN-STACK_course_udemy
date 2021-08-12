@@ -32,10 +32,6 @@ const routes: Routes = [
     path: 'calculator',
     component: CalculatorComponent
   },
-  // {
-  //   path: 'post-list',
-  //   component: PostListComponent,
-  // },
   {
     path: 'post-create',
     component: PostCreateComponent,
@@ -53,7 +49,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  // imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [AuthGuard]
