@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,12 +11,23 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+    private authStatusSubs: Subscription;
+
     constructor(
         private authService: AuthService,
         private messageService: MessageService
     ) { }
 
     ngOnInit(): void {
+        this.authStatusSubs = this.authService.getAuthStatusListener().subscribe(
+            authStatus => {
+                // this.isLoading = authStatus;
+                console.log('authStatusLogin ', authStatus);
+            });
+    }
+
+    ngOnDestroy() {
+        this.authStatusSubs.unsubscribe();
     }
 
     onLogin(form: NgForm) {
@@ -23,10 +35,10 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.authService.login(form.value.email, form.value.password);
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Info',
-            detail: 'anda berhasil login!'
-        });
+        // this.messageService.add({
+        //     severity: 'success',
+        //     summary: 'Info',
+        //     detail: 'anda berhasil login!'
+        // });
     }
 }

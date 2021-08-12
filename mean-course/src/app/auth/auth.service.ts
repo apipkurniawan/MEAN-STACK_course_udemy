@@ -42,7 +42,12 @@ export class AuthService {
 
     createUser(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
-        return this.httpClient.post(API_URL + '/signup', authData);
+        return this.httpClient.post(API_URL + '/signup', authData)
+            .subscribe(response => {
+                this.router.navigate(['/']);
+            }, error => {
+                this.authStatusListener.next(false);
+            });
     }
 
     login(email: string, password: string) {
@@ -61,6 +66,8 @@ export class AuthService {
                     this.saveAuthData(this.token, expirationDate, this.userId);
                     this.router.navigate(['/']);
                 }
+            }, error => {
+                this.authStatusListener.next(false);
             });
     }
 

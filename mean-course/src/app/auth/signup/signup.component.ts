@@ -1,16 +1,18 @@
 import { MessageService } from 'primeng/api';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
+
+    private authStatusSubs: Subscription;
 
     constructor(
         private authService: AuthService,
@@ -18,21 +20,32 @@ export class SignUpComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.authStatusSubs = this.authService.getAuthStatusListener().subscribe(
+            authStatus => {
+                // this.isLoading = authStatus;
+                console.log('authStatusSignUp ', authStatus);
+            });
+    }
+
+    ngOnDestroy() {
+        this.authStatusSubs.unsubscribe();
     }
 
     onSignUp(form: NgForm) {
         if (form.invalid) {
             return;
         }
-        this.authService.createUser(form.value.email, form.value.password)
-            .subscribe(res => {
-                console.log('response.createUser ', res);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Info',
-                    detail: 'User berhasil didaftarkan!'
-                });
-            });
+        this.authService.createUser(form.value.email, form.value.password);
+        // .subscribe(res => {
+        //     console.log('response.createUser ', res);
+        //     this.messageService.add({
+        //         severity: 'success',
+        //         summary: 'Info',
+        //         detail: 'User berhasil didaftarkan!'
+        //     });
+        // }, error => {
+
+        // });
     }
 
 }
