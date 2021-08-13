@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AuthDataWrapper } from './auth-data.model';
 import { Router } from '@angular/router';
 
-const API_URL = environment.DEV_API_URL_AUTH + '/users';
+const API_URL = `${environment.DEV_API_URL_AUTH}/users`;
 
 @Injectable({
     providedIn: 'root'
@@ -42,7 +42,7 @@ export class AuthService {
 
     createUser(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
-        return this.httpClient.post(API_URL + '/signup', authData)
+        return this.httpClient.post(`${API_URL}/signup`, authData)
             .subscribe(response => {
                 this.router.navigate(['/']);
             }, error => {
@@ -52,7 +52,7 @@ export class AuthService {
 
     login(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
-        this.httpClient.post<{ token: string, expiresIn: number, userId: string }>(API_URL + '/login', authData)
+        this.httpClient.post<{ token: string, expiresIn: number, userId: string }>(`${API_URL}/login`, authData)
             .subscribe(response => {
                 this.token = response.token;
                 if (this.token) {

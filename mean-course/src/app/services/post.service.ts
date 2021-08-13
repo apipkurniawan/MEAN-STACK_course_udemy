@@ -5,7 +5,7 @@ import { map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { PostWrapper } from 'src/app/models/post-wrapper.model';
 
-const API_URL = environment.DEV_API_URL_AUTH + '/posts';
+const API_URL = `${environment.DEV_API_URL_AUTH}/posts`;
 @Injectable({
     providedIn: 'root'
 })
