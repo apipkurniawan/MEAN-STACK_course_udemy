@@ -35,10 +35,5 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.authService.login(form.value.email, form.value.password);
-        // this.messageService.add({
-        //     severity: 'success',
-        //     summary: 'Info',
-        //     detail: 'anda berhasil login!'
-        // });
     }
 }

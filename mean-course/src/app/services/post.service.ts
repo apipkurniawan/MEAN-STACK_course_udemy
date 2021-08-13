@@ -19,7 +19,6 @@ export class PostService {
 
     getPosts(postsPerPage: number, currentPage: number) {
         const queryParams = `?pageSize=${postsPerPage}&page=${currentPage}`;
-        console.log('param ', queryParams);
         this.httpClient.get<{ message: string, posts: any, maxPosts: number }>(API_URL + queryParams)
             .pipe(map((postData) => {
                 return {
@@ -36,7 +35,6 @@ export class PostService {
                 };
             }))
             .subscribe(transformedPostData => {
-                console.log('transformedPostData ', transformedPostData);
                 this.posts = transformedPostData.posts;
                 this.postUpdated.next({
                     posts: [...this.posts],

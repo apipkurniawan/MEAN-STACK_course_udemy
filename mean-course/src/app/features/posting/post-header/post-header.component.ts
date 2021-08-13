@@ -48,7 +48,6 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
                 visible: this.userIsAuthenticated
             }
         ];
-        console.log('setItems ', this.items);
     }
 
     handleNavbar(labels: string[], isAuth: boolean) {
@@ -58,7 +57,6 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
             }
             return e;
         });
-        console.log('handleItems ', this.items);
     }
 
     onLogIn() {

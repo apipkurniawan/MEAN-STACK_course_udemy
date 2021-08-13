@@ -69,7 +69,6 @@ export class PostListComponent implements OnInit, OnDestroy {
     }
 
     paginate(pageData) {
-        console.log(pageData)
         this.fetchData(pageData.rows, Number(pageData.page) + 1);
     }
 }

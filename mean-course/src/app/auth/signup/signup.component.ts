@@ -36,16 +36,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
             return;
         }
         this.authService.createUser(form.value.email, form.value.password);
-        // .subscribe(res => {
-        //     console.log('response.createUser ', res);
-        //     this.messageService.add({
-        //         severity: 'success',
-        //         summary: 'Info',
-        //         detail: 'User berhasil didaftarkan!'
-        //     });
-        // }, error => {
-
-        // });
     }
 
 }
