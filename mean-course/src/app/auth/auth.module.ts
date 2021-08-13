@@ -1,3 +1,4 @@
+import { AuthRoutingModule } from './auth-routing.module';
 import { NgModule } from '@angular/core';
 import { FeaturesModule } from '../features/features.module';
 import { SharedModule } from '../shared/shared.module';
@@ -11,7 +12,8 @@ import { SignUpComponent } from './signup/signup.component';
     ],
     imports: [
         SharedModule,
-        FeaturesModule
+        FeaturesModule,
+        AuthRoutingModule
     ],
     exports: []
 })

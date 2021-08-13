@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FeaturesModule } from './features/features.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -18,7 +19,8 @@ import { ErrorInterceptor } from './core/interceptor/error-handle.interceptor';
     AppRoutingModule,
     SharedModule,
     FeaturesModule,
-    AuthModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule
   ],
   providers: [

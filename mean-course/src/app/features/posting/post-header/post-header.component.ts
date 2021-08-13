@@ -62,7 +62,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
     }
 
     onLogIn() {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
     }
 
     onLogOut() {
@@ -70,7 +70,7 @@ export class PostHeaderComponent implements OnInit, OnDestroy {
     }
 
     showSignUp() {
-        this.router.navigate(['/signup']);
+        this.router.navigate(['/auth/signup']);
     }
 
 }
