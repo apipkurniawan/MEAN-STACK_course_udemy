@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthDataWrapper } from './auth-data.model';
-import { Router } from '@angular/router';
 
 const API_URL = `${environment.DEV_API_URL_AUTH}/users`;
 
@@ -40,7 +40,7 @@ export class AuthService {
         return this.authStatusListener.asObservable();
     }
 
-    createUser(email: string, password: string) {
+    signup(email: string, password: string) {
         const authData: AuthDataWrapper = { email, password };
         return this.httpClient.post(`${API_URL}/signup`, authData)
             .subscribe(response => {
@@ -90,8 +90,8 @@ export class AuthService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
-        this.authStatusListener.next(false);
         this.userId = null;
+        this.authStatusListener.next(false);
         clearTimeout(this.tokenTimer);
         this.clearAuthData();
         this.router.navigate(['/']);

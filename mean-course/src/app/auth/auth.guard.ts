@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
         private router: Router
     ) { }
 
+    // setiap route url harus memiliki token atau authentikasi, jika tidak memiliki hal tsb maka di redirect ke halaman login
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
         const isAuth = this.authService.getIsAuth();
         if (!isAuth) {
